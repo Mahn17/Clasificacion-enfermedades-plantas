@@ -1,18 +1,15 @@
 #Manuel Alejandro Heredia Nogales
 """Descarga del dataset plant_leaves desde Mendeley Data
 
-El enlace que usa tensorflow_datasets (tfds.load('plant_leaves')) ya no
-funciona: el servidor responde "AccessDenied". Por eso descargamos las
-mismas 4502 imágenes directamente de la fuente original:
+Descargamos las 4502 imágenes directamente de la fuente original:
 
     Chouhan, S. S., Kaul, A., Singh, U. P., Jain, S. (2019).
     A Database of Leaf Images: Practice towards Plant Conservation with
     Plant Pathology. Mendeley Data, V1. https://doi.org/10.17632/hb74ynkjcn.1
     Licencia CC BY 4.0
 
-Las imágenes quedan en  datos/plant_leaves/<Especie>/<healthy|diseased>/XXXX_YYYY.JPG
-(la misma estructura del zip original). El prefijo XXXX del archivo es la
-clase (0001 ... 0022), igual que en tfds.
+Las imágenes quedan en  datos/plant_leaves/<Especie>/<healthy|diseased>/XXXX_YYYY.JPG.
+El prefijo XXXX del archivo es la clase (0001 ... 0022), igual que en tfds.
 
 Se puede volver a ejecutar sin problema: las imágenes que ya están
 descargadas y cuyo sha256 coincide se saltan.
