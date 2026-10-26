@@ -54,11 +54,6 @@ pongamia, albahaca, granada, limón y chinar, cada una fotografiada sobre un fon
 
 ![Distribución de clases](resultados/distribucion_clases.png)
 
-> **Nota:** `tfds.load('plant_leaves')` ya no funciona, porque el servidor del zip responde
-> `AccessDenied`. Por eso [`descargar_datos.py`](descargar_datos.py) descarga las mismas 4502
-> imágenes de la fuente original, la API pública de Mendeley Data, y verifica el sha256 de cada
-> archivo. El orden de las etiquetas es el mismo que en tfds.
->
 > Chouhan, S. S., Kaul, A., Singh, U. P., Jain, S. (2019). *A Database of Leaf Images: Practice
 > towards Plant Conservation with Plant Pathology*. Mendeley Data, V1.
 > [doi:10.17632/hb74ynkjcn.1](https://doi.org/10.17632/hb74ynkjcn.1) — licencia CC BY 4.0.
