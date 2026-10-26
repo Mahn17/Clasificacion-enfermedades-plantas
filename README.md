@@ -107,10 +107,13 @@ pongamia, albahaca, granada, limón y chinar, cada una fotografiada sobre un fon
 
 ## Cómo reproducirlo en YUCA
 
-**1. Subir el proyecto** (desde tu computadora):
+**1. Subir el proyecto** (desde tu computadora). `CARPETA` es la carpeta de este proyecto:
+`Tareas/Clasificacion con TL` en el repositorio del curso, o `Clasificacion-enfermedades-plantas`
+si clonaste el repositorio del proyecto.
 
 ```bash
-scp -r "Tareas/Clasificacion con TL" estudiante_09@148.225.111.153:~/ClasificacionTL
+CARPETA="Tareas/Clasificacion con TL"      # o "Clasificacion-enfermedades-plantas"
+scp -r "$CARPETA" estudiante_09@148.225.111.153:~/ClasificacionTL
 ssh estudiante_09@148.225.111.153
 cd ~/ClasificacionTL
 ```
@@ -162,9 +165,10 @@ El trabajo hace cuatro cosas en orden:
 ```bash
 # en YUCA
 tar czf resultados_tl.tgz resultados modelo/modelo_plantas.h5 app plantas_tl.yml slurm-*.out
-# en tu computadora
+# en tu computadora (con la misma CARPETA del paso 1)
+CARPETA="Tareas/Clasificacion con TL"      # o "Clasificacion-enfermedades-plantas"
 scp estudiante_09@148.225.111.153:~/ClasificacionTL/resultados_tl.tgz .
-tar xzf resultados_tl.tgz -C "Tareas/Clasificacion con TL"
+tar xzf resultados_tl.tgz -C "$CARPETA"
 ```
 
 ---
