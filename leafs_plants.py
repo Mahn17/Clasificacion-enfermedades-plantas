@@ -154,7 +154,8 @@ plt.close()
 def cargar_imagen(ruta, etiqueta):
     datos = tf.io.read_file(ruta)
     # ratio=8: libjpeg decodifica directamente a 1/8 del tamaño (6000x4000 -> 750x500).
-    # Es mucho más rápido y usa mucha menos memoria que decodificar 24 megapíxeles.
+    # La imagen decodificada ocupa 64 veces menos memoria y el redimensionado trabaja
+    # con 375 mil píxeles en lugar de 24 millones.
     imagen = tf.io.decode_jpeg(datos, channels=3, ratio=8)
     imagen = tf.image.resize(imagen, TAMANO_IMG, antialias=True)
     return imagen, etiqueta
