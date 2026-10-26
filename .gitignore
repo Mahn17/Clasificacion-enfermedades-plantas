@@ -1,0 +1,8 @@
+# Imágenes descargadas de Mendeley (6.8 GB): se obtienen con descargar_datos.py
+datos/
+# Pesos intermedios del ModelCheckpoint (el modelo final es modelo/modelo_plantas.h5)
+modelo/mejores_pesos.h5
+resultados_tl.tgz
+
+# El .gitignore de la raíz ignora *.png, pero las gráficas de esta tarea sí se suben
+!*.png

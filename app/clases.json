@@ -1,0 +1,90 @@
+[
+ {
+  "tfds": "Mango (P0) healthy",
+  "nombre": "Mango - sana"
+ },
+ {
+  "tfds": "Arjun (P1) healthy",
+  "nombre": "Arjun - sana"
+ },
+ {
+  "tfds": "Alstonia Scholaris (P2) healthy",
+  "nombre": "Alstonia - sana"
+ },
+ {
+  "tfds": "Gauva (P3) healthy",
+  "nombre": "Guayaba - sana"
+ },
+ {
+  "tfds": "Jamun (P5) healthy",
+  "nombre": "Jamun - sana"
+ },
+ {
+  "tfds": "Jatropha (P6) healthy",
+  "nombre": "Jatrofa - sana"
+ },
+ {
+  "tfds": "Pongamia Pinnata (P7) healthy",
+  "nombre": "Pongamia - sana"
+ },
+ {
+  "tfds": "Basil (P8) healthy",
+  "nombre": "Albahaca - sana"
+ },
+ {
+  "tfds": "Pomegranate (P9) healthy",
+  "nombre": "Granada - sana"
+ },
+ {
+  "tfds": "Lemon (P10) healthy",
+  "nombre": "Limón - sana"
+ },
+ {
+  "tfds": "Chinar (P11) healthy",
+  "nombre": "Chinar - sana"
+ },
+ {
+  "tfds": "Mango (P0) diseased",
+  "nombre": "Mango - enferma"
+ },
+ {
+  "tfds": "Arjun (P1) diseased",
+  "nombre": "Arjun - enferma"
+ },
+ {
+  "tfds": "Alstonia Scholaris (P2) diseased",
+  "nombre": "Alstonia - enferma"
+ },
+ {
+  "tfds": "Gauva (P3) diseased",
+  "nombre": "Guayaba - enferma"
+ },
+ {
+  "tfds": "Bael (P4) diseased",
+  "nombre": "Bael - enferma"
+ },
+ {
+  "tfds": "Jamun (P5) diseased",
+  "nombre": "Jamun - enferma"
+ },
+ {
+  "tfds": "Jatropha (P6) diseased",
+  "nombre": "Jatrofa - enferma"
+ },
+ {
+  "tfds": "Pongamia Pinnata (P7) diseased",
+  "nombre": "Pongamia - enferma"
+ },
+ {
+  "tfds": "Pomegranate (P9) diseased",
+  "nombre": "Granada - enferma"
+ },
+ {
+  "tfds": "Lemon (P10) diseased",
+  "nombre": "Limón - enferma"
+ },
+ {
+  "tfds": "Chinar (P11) diseased",
+  "nombre": "Chinar - enferma"
+ }
+]

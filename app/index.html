@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hojas de plantas</title>
+<meta name="theme-color" content="#1f7a4a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍃</text></svg>">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f6f6f3;
+    --surface: #ffffff;
+    --text: #161614;
+    --muted: #5f5e59;
+    --line: #e1e0d9;
+    --accent: #1f7a4a;
+    --accent-text: #ffffff;
+    --sana: #1f7a4a;
+    --enferma: #b4400f;
+    --bar: #2a78d6;
+    --track: #ecebe6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #121211;
+      --surface: #1d1d1b;
+      --text: #f0efec;
+      --muted: #a9a89f;
+      --line: #34332f;
+      --accent: #4cb07a;
+      --accent-text: #0d1f15;
+      --sana: #5cc28a;
+      --enferma: #f08a4b;
+      --bar: #3987e5;
+      --track: #2a2a27;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main, header, footer { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 18px; }
+  h1 { font-size: 1.35rem; margin: 0; }
+  .sub { margin: 2px 0 14px; color: var(--muted); font-size: .9rem; }
+
+  .visor {
+    position: relative;
+    aspect-ratio: 3 / 2;            /* misma proporción que las fotos de entrenamiento */
+    background: #000;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .visor video, .visor img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .visor video[hidden], .visor img[hidden] { display: none; }
+  .aviso {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 16px; color: #f0efec; background: rgba(0, 0, 0, .55); font-size: .95rem;
+  }
+  .aviso[hidden] { display: none; }
+
+  .acciones { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 12px 0 6px; }
+  .boton {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 46px; padding: 8px 10px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); color: var(--text);
+    font: inherit; font-size: .95rem; cursor: pointer;
+  }
+  .boton.primario { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+  .boton:disabled { opacity: .5; cursor: default; }
+  .consejo { color: var(--muted); font-size: .85rem; margin: 6px 0 14px; }
+
+  .tarjeta { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .tarjeta[hidden] { display: none; }
+  .top1 { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  #especie { font-size: 1.6rem; font-weight: 700; }
+  .badge { padding: 4px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem; border: 2px solid currentColor; }
+  .badge.sana { color: var(--sana); }
+  .badge.enferma { color: var(--enferma); }
+  #confianza { color: var(--muted); margin-top: 2px; }
+  #real { margin-top: 6px; font-size: .9rem; }
+  #real[hidden] { display: none; }
+
+  ol { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 10px; }
+  .fila { display: flex; justify-content: space-between; font-size: .9rem; margin-bottom: 4px; }
+  .fila span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pista { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
+  .barra { height: 100%; border-radius: 4px; background: var(--bar); transition: width .25s; }
+  .muted { color: var(--muted); font-size: .8rem; margin-top: 12px; }
+  footer { color: var(--muted); font-size: .75rem; padding-bottom: 24px; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🍃 Hojas de plantas</h1>
+  <p class="sub">MobileNetV2 + transferencia de aprendizaje · 12 especies · sana o enferma</p>
+</header>
+
+<main>
+  <section class="visor">
+    <video id="video" playsinline muted></video>
+    <img id="foto" alt="Foto a clasificar" hidden>
+    <div id="aviso" class="aviso">Cargando modelo…</div>
+  </section>
+
+  <div class="acciones">
+    <button id="btn-camara" class="boton primario" disabled>📷 Cámara</button>
+    <button id="btn-pausa" class="boton" disabled>⏸ Pausar</button>
+    <label class="boton" id="btn-archivo">🖼 Subir foto
+      <input id="archivo" type="file" accept="image/*" hidden>
+    </label>
+    <button id="btn-muestra" class="boton" disabled>🎲 Muestra de prueba</button>
+  </div>
+  <p class="consejo">Coloca una sola hoja sobre un fondo oscuro y encuádrala completa dentro del recuadro.</p>
+
+  <section id="resultado" class="tarjeta" hidden aria-live="polite">
+    <div class="top1">
+      <span id="especie">—</span>
+      <span id="badge" class="badge"></span>
+    </div>
+    <div id="confianza"></div>
+    <div id="real" hidden></div>
+    <ol id="top3"></ol>
+    <div id="tiempo" class="muted"></div>
+  </section>
+</main>
+
+<footer>
+  Dataset <a href="https://doi.org/10.17632/hb74ynkjcn.1">plant_leaves</a> (Mendeley Data, CC BY 4.0) · TensorFlow.js
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+<script>
+const TAMANO = 224;          // entrada de MobileNetV2
+const PROPORCION = 3 / 2;    // las fotos del dataset son de 6000x4000
+const INTERVALO_MS = 250;    // clasificación en vivo ~4 veces por segundo
+
+const video = document.getElementById("video");
+const foto = document.getElementById("foto");
+const aviso = document.getElementById("aviso");
+const btnCamara = document.getElementById("btn-camara");
+const btnPausa = document.getElementById("btn-pausa");
+const btnMuestra = document.getElementById("btn-muestra");
+const archivo = document.getElementById("archivo");
+
+const lienzo = document.createElement("canvas");
+lienzo.width = lienzo.height = TAMANO;
+const ctx = lienzo.getContext("2d", { willReadFrequently: true });
+ctx.imageSmoothingQuality = "high";
+
+let modelo, clases, muestras = [];
+let enVivo = false;
+let promedio = null;         // promedio móvil de probabilidades (evita parpadeo en vivo)
+
+function mostrarAviso(texto) {
+  aviso.textContent = texto;
+  aviso.hidden = !texto;
+}
+
+// Recorte central con la proporción de entrenamiento; el visor (object-fit: cover)
+// muestra exactamente esta misma región.
+function recorte(ancho, alto) {
+  let w = ancho, h = ancho / PROPORCION;
+  if (h > alto) { h = alto; w = alto * PROPORCION; }
+  return [(ancho - w) / 2, (alto - h) / 2, w, h];
+}
+
+async function clasificar(fuente, ancho, alto, suavizar) {
+  const [sx, sy, sw, sh] = recorte(ancho, alto);
+  ctx.drawImage(fuente, sx, sy, sw, sh, 0, 0, TAMANO, TAMANO);
+
+  const t0 = performance.now();
+  // El modelo incluye la capa Rescaling: recibe pixeles en [0, 255]
+  const salida = tf.tidy(() => modelo.predict(tf.browser.fromPixels(lienzo).toFloat().expandDims(0)));
+  const prob = await salida.data();
+  salida.dispose();
+  const ms = performance.now() - t0;
+
+  if (suavizar && promedio) {
+    for (let i = 0; i < prob.length; i++) promedio[i] = 0.6 * promedio[i] + 0.4 * prob[i];
+  } else {
+    promedio = Float32Array.from(prob);
+  }
+  mostrarResultado(promedio, ms);
+}
+
+function separar(nombre) {
+  const [especie, estado] = nombre.split(" - ");
+  return { especie, estado };
+}
+
+function mostrarResultado(prob, ms) {
+  const orden = Array.from(prob.keys()).sort((a, b) => prob[b] - prob[a]).slice(0, 3);
+  const { especie, estado } = separar(clases[orden[0]].nombre);
+  const confianza = prob[orden[0]];
+
+  document.getElementById("especie").textContent = especie;
+  const badge = document.getElementById("badge");
+  badge.textContent = estado === "sana" ? "✓ Sana" : "⚠ Enferma";
+  badge.className = "badge " + estado;
+  document.getElementById("confianza").textContent = confianza < 0.4
+    ? `Confianza baja (${(100 * confianza).toFixed(0)} %): acerca la hoja y usa un fondo oscuro`
+    : `${(100 * confianza).toFixed(1)} % de confianza`;
+
+  const lista = document.getElementById("top3");
+  lista.replaceChildren(...orden.map(i => {
+    const li = document.createElement("li");
+    const fila = document.createElement("div");
+    fila.className = "fila";
+    const nombre = document.createElement("span");
+    nombre.textContent = clases[i].nombre;
+    const pct = document.createElement("span");
+    pct.textContent = `${(100 * prob[i]).toFixed(1)} %`;
+    fila.append(nombre, pct);
+    const pista = document.createElement("div");
+    pista.className = "pista";
+    const barra = document.createElement("div");
+    barra.className = "barra";
+    barra.style.width = `${(100 * prob[i]).toFixed(1)}%`;
+    pista.append(barra);
+    li.append(fila, pista);
+    return li;
+  }));
+
+  document.getElementById("tiempo").textContent =
+    `Inferencia: ${ms.toFixed(0)} ms · backend ${tf.getBackend()}`;
+  document.getElementById("resultado").hidden = false;
+}
+
+async function bucle() {
+  if (!enVivo) return;
+  if (video.readyState >= 2 && video.videoWidth > 0) {
+    await clasificar(video, video.videoWidth, video.videoHeight, true);
+  }
+  setTimeout(() => requestAnimationFrame(bucle), INTERVALO_MS);
+}
+
+function iniciarVivo() {
+  foto.hidden = true;
+  video.hidden = false;
+  document.getElementById("real").hidden = true;
+  enVivo = true;
+  promedio = null;
+  btnPausa.disabled = false;
+  btnPausa.textContent = "⏸ Pausar";
+  video.play();
+  bucle();
+}
+
+function detenerVivo() {
+  enVivo = false;
+  video.pause();
+  btnPausa.textContent = "▶ Continuar";
+}
+
+async function encenderCamara() {
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    mostrarAviso("La cámara necesita HTTPS: abre la liga de ngrok. Mientras, puedes subir una foto.");
+    return;
+  }
+  try {
+    if (!video.srcObject) {
+      video.srcObject = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 960 } },
+        audio: false,
+      });
+    }
+    mostrarAviso("");
+    iniciarVivo();
+  } catch (e) {
+    mostrarAviso("No se pudo abrir la cámara (" + e.name + "). Revisa los permisos o sube una foto.");
+  }
+}
+
+function clasificarImagen(url, claseReal) {
+  detenerVivo();
+  btnPausa.disabled = true;
+  foto.onload = async () => {
+    video.hidden = true;
+    foto.hidden = false;
+    mostrarAviso("");
+    await clasificar(foto, foto.naturalWidth, foto.naturalHeight, false);
+    const real = document.getElementById("real");
+    real.hidden = claseReal === undefined;
+    if (claseReal !== undefined) real.textContent = `Clase real: ${clases[claseReal].nombre}`;
+  };
+  foto.src = url;
+}
+
+btnCamara.onclick = encenderCamara;
+btnPausa.onclick = () => (enVivo ? detenerVivo() : iniciarVivo());
+archivo.onchange = () => {
+  if (archivo.files[0]) clasificarImagen(URL.createObjectURL(archivo.files[0]));
+  archivo.value = "";
+};
+btnMuestra.onclick = () => {
+  const m = muestras[Math.floor(Math.random() * muestras.length)];
+  clasificarImagen(m.archivo, m.clase);
+};
+
+(async () => {
+  try {
+    [clases, modelo] = await Promise.all([
+      fetch("clases.json").then(r => r.json()),
+      tf.loadLayersModel("modelo/model.json"),
+    ]);
+    muestras = await fetch("muestras.json").then(r => (r.ok ? r.json() : [])).catch(() => []);
+    // Primera inferencia de calentamiento (compila los shaders de WebGL)
+    tf.tidy(() => modelo.predict(tf.zeros([1, TAMANO, TAMANO, 3])));
+    btnCamara.disabled = false;
+    btnMuestra.disabled = muestras.length === 0;
+    mostrarAviso("Modelo listo. Pulsa «Cámara» o sube una foto.");
+  } catch (e) {
+    mostrarAviso("No se pudo cargar el modelo: " + e.message);
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>

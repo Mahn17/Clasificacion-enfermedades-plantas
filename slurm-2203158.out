@@ -1,0 +1,233 @@
+Transferencia de aprendizaje: enfermedades de plantas (plant_leaves)
+Nodo: amdcpu-hpc-20  CPUs: 16  Inicio: Sun Oct 25 21:00:07 MST 2026
+Dataset completo (4502 imagenes), se omite la descarga
+2026-10-25 21:00:15.520578: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-10-25 21:00:15.521433: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-10-25 21:00:15.586159: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+Hermosillo, 21:00:30
+TensorFlow 2.15.0, 16 CPUs
+
+Imágenes encontradas: 4502  (el dataset completo tiene 4502)
+Clases: 22
+
+Imágenes por clase:
+  Mango - sana          170
+  Arjun - sana          220
+  Alstonia - sana       179
+  Guayaba - sana        277
+  Jamun - sana          279
+  Jatrofa - sana        133
+  Pongamia - sana       322
+  Albahaca - sana       148
+  Granada - sana        287
+  Limón - sana          159
+  Chinar - sana         103
+  Mango - enferma       265
+  Arjun - enferma       232
+  Alstonia - enferma    254
+  Guayaba - enferma     142
+  Bael - enferma        118
+  Jamun - enferma       345
+  Jatrofa - enferma     124
+  Pongamia - enferma    276
+  Granada - enferma     272
+  Limón - enferma        77
+  Chinar - enferma      120
+Desbalance: la clase más grande tiene 4.5 veces más imágenes que la más pequeña
+
+Train=3151, Val=675, Test=676
+
+Pesos de las clases: {'Mango - sana': 1.2, 'Arjun - sana': 0.93, 'Alstonia - sana': 1.15, 'Guayaba - sana': 0.74, 'Jamun - sana': 0.73, 'Jatrofa - sana': 1.54, 'Pongamia - sana': 0.64, 'Albahaca - sana': 1.38, 'Granada - sana': 0.71, 'Limón - sana': 1.29, 'Chinar - sana': 1.99, 'Mango - enferma': 0.77, 'Arjun - enferma': 0.88, 'Alstonia - enferma': 0.8, 'Guayaba - enferma': 1.45, 'Bael - enferma': 1.73, 'Jamun - enferma': 0.59, 'Jatrofa - enferma': 1.65, 'Pongamia - enferma': 0.74, 'Granada - enferma': 0.75, 'Limón - enferma': 2.65, 'Chinar - enferma': 1.71}
+
+MobileNetV2 tiene 154 capas
+Model: "plantas_mobilenetv2"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ imagen (InputLayer)         [(None, 224, 224, 3)]     0         
+                                                                 
+ escala (Rescaling)          (None, 224, 224, 3)       0         
+                                                                 
+ mobilenetv2_1.00_224 (Func  (None, 7, 7, 1280)        2257984   
+ tional)                                                         
+                                                                 
+ promedio_global (GlobalAve  (None, 1280)              0         
+ ragePooling2D)                                                  
+                                                                 
+ dropout (Dropout)           (None, 1280)              0         
+                                                                 
+ clases (Dense)              (None, 22)                28182     
+                                                                 
+=================================================================
+Total params: 2286166 (8.72 MB)
+Trainable params: 28182 (110.09 KB)
+Non-trainable params: 2257984 (8.61 MB)
+_________________________________________________________________
+
+Fase 1 (extracción de características), Hermosillo 21:00:34
+Epoch 1/15
+99/99 - 20s - loss: 1.7910 - accuracy: 0.4678 - top3: 0.7245 - val_loss: 0.9677 - val_accuracy: 0.7126 - val_top3: 0.9378 - lr: 0.0010 - 20s/epoch - 204ms/step
+Epoch 2/15
+99/99 - 10s - loss: 0.9441 - accuracy: 0.7010 - top3: 0.9302 - val_loss: 0.7028 - val_accuracy: 0.7911 - val_top3: 0.9526 - lr: 0.0010 - 10s/epoch - 99ms/step
+Epoch 3/15
+99/99 - 9s - loss: 0.7665 - accuracy: 0.7639 - top3: 0.9514 - val_loss: 0.6255 - val_accuracy: 0.7926 - val_top3: 0.9719 - lr: 0.0010 - 9s/epoch - 94ms/step
+Epoch 4/15
+99/99 - 10s - loss: 0.6523 - accuracy: 0.7991 - top3: 0.9600 - val_loss: 0.6002 - val_accuracy: 0.8030 - val_top3: 0.9763 - lr: 0.0010 - 10s/epoch - 101ms/step
+Epoch 5/15
+99/99 - 9s - loss: 0.5782 - accuracy: 0.8147 - top3: 0.9699 - val_loss: 0.5106 - val_accuracy: 0.8415 - val_top3: 0.9852 - lr: 0.0010 - 9s/epoch - 93ms/step
+Epoch 6/15
+99/99 - 9s - loss: 0.5394 - accuracy: 0.8385 - top3: 0.9724 - val_loss: 0.5112 - val_accuracy: 0.8267 - val_top3: 0.9867 - lr: 0.0010 - 9s/epoch - 95ms/step
+Epoch 7/15
+99/99 - 9s - loss: 0.5182 - accuracy: 0.8372 - top3: 0.9797 - val_loss: 0.4827 - val_accuracy: 0.8252 - val_top3: 0.9896 - lr: 0.0010 - 9s/epoch - 93ms/step
+Epoch 8/15
+99/99 - 9s - loss: 0.4892 - accuracy: 0.8477 - top3: 0.9797 - val_loss: 0.4558 - val_accuracy: 0.8489 - val_top3: 0.9837 - lr: 0.0010 - 9s/epoch - 95ms/step
+Epoch 9/15
+99/99 - 10s - loss: 0.4681 - accuracy: 0.8458 - top3: 0.9791 - val_loss: 0.4446 - val_accuracy: 0.8548 - val_top3: 0.9881 - lr: 0.0010 - 10s/epoch - 96ms/step
+Epoch 10/15
+99/99 - 9s - loss: 0.4470 - accuracy: 0.8591 - top3: 0.9800 - val_loss: 0.4087 - val_accuracy: 0.8489 - val_top3: 0.9926 - lr: 0.0010 - 9s/epoch - 96ms/step
+Epoch 11/15
+99/99 - 9s - loss: 0.4319 - accuracy: 0.8572 - top3: 0.9822 - val_loss: 0.4151 - val_accuracy: 0.8533 - val_top3: 0.9941 - lr: 0.0010 - 9s/epoch - 95ms/step
+Epoch 12/15
+99/99 - 9s - loss: 0.4244 - accuracy: 0.8626 - top3: 0.9816 - val_loss: 0.4022 - val_accuracy: 0.8548 - val_top3: 0.9941 - lr: 0.0010 - 9s/epoch - 95ms/step
+Epoch 13/15
+99/99 - 9s - loss: 0.4078 - accuracy: 0.8661 - top3: 0.9864 - val_loss: 0.4068 - val_accuracy: 0.8578 - val_top3: 0.9941 - lr: 0.0010 - 9s/epoch - 94ms/step
+Epoch 14/15
+99/99 - 9s - loss: 0.4176 - accuracy: 0.8569 - top3: 0.9835 - val_loss: 0.3860 - val_accuracy: 0.8622 - val_top3: 0.9911 - lr: 0.0010 - 9s/epoch - 94ms/step
+Epoch 15/15
+99/99 - 9s - loss: 0.3891 - accuracy: 0.8686 - top3: 0.9879 - val_loss: 0.4012 - val_accuracy: 0.8607 - val_top3: 0.9911 - lr: 0.0010 - 9s/epoch - 92ms/step
+Tiempo fase 1: 2.55 mins
+
+Variables entrenables en el ajuste fino: 56
+
+Fase 2 (ajuste fino), Hermosillo 21:03:07
+Epoch 16/35
+
+Epoch 16: val_loss improved from inf to 0.32258, saving model to /lustre/home/estudiante_09/ClasificacionTL/modelo/mejores_pesos.h5
+99/99 - 16s - loss: 0.3525 - accuracy: 0.8829 - top3: 0.9885 - val_loss: 0.3226 - val_accuracy: 0.8815 - val_top3: 0.9926 - lr: 1.0000e-05 - 16s/epoch - 166ms/step
+Epoch 17/35
+
+Epoch 17: val_loss did not improve from 0.32258
+99/99 - 14s - loss: 0.3108 - accuracy: 0.8953 - top3: 0.9898 - val_loss: 0.3773 - val_accuracy: 0.8741 - val_top3: 0.9911 - lr: 1.0000e-05 - 14s/epoch - 142ms/step
+Epoch 18/35
+
+Epoch 18: val_loss improved from 0.32258 to 0.29203, saving model to /lustre/home/estudiante_09/ClasificacionTL/modelo/mejores_pesos.h5
+99/99 - 14s - loss: 0.2930 - accuracy: 0.9026 - top3: 0.9892 - val_loss: 0.2920 - val_accuracy: 0.8948 - val_top3: 0.9926 - lr: 1.0000e-05 - 14s/epoch - 141ms/step
+Epoch 19/35
+
+Epoch 19: val_loss did not improve from 0.29203
+99/99 - 13s - loss: 0.2823 - accuracy: 0.9080 - top3: 0.9924 - val_loss: 0.3009 - val_accuracy: 0.9052 - val_top3: 0.9970 - lr: 1.0000e-05 - 13s/epoch - 136ms/step
+Epoch 20/35
+
+Epoch 20: ReduceLROnPlateau reducing learning rate to 4.999999873689376e-06.
+
+Epoch 20: val_loss did not improve from 0.29203
+99/99 - 13s - loss: 0.2664 - accuracy: 0.9010 - top3: 0.9927 - val_loss: 0.3515 - val_accuracy: 0.8800 - val_top3: 0.9970 - lr: 1.0000e-05 - 13s/epoch - 136ms/step
+Epoch 21/35
+
+Epoch 21: val_loss did not improve from 0.29203
+99/99 - 13s - loss: 0.2483 - accuracy: 0.9156 - top3: 0.9933 - val_loss: 0.3345 - val_accuracy: 0.8904 - val_top3: 0.9956 - lr: 5.0000e-06 - 13s/epoch - 134ms/step
+Epoch 22/35
+
+Epoch 22: val_loss improved from 0.29203 to 0.27897, saving model to /lustre/home/estudiante_09/ClasificacionTL/modelo/mejores_pesos.h5
+99/99 - 13s - loss: 0.2311 - accuracy: 0.9245 - top3: 0.9975 - val_loss: 0.2790 - val_accuracy: 0.8993 - val_top3: 0.9970 - lr: 5.0000e-06 - 13s/epoch - 132ms/step
+Epoch 23/35
+
+Epoch 23: val_loss did not improve from 0.27897
+99/99 - 13s - loss: 0.2248 - accuracy: 0.9242 - top3: 0.9962 - val_loss: 0.3031 - val_accuracy: 0.8993 - val_top3: 0.9956 - lr: 5.0000e-06 - 13s/epoch - 136ms/step
+Epoch 24/35
+
+Epoch 24: ReduceLROnPlateau reducing learning rate to 2.499999936844688e-06.
+
+Epoch 24: val_loss did not improve from 0.27897
+99/99 - 13s - loss: 0.2177 - accuracy: 0.9295 - top3: 0.9965 - val_loss: 0.2810 - val_accuracy: 0.8978 - val_top3: 0.9970 - lr: 5.0000e-06 - 13s/epoch - 134ms/step
+Epoch 25/35
+
+Epoch 25: val_loss did not improve from 0.27897
+99/99 - 13s - loss: 0.2053 - accuracy: 0.9343 - top3: 0.9952 - val_loss: 0.2799 - val_accuracy: 0.9067 - val_top3: 0.9970 - lr: 2.5000e-06 - 13s/epoch - 133ms/step
+Epoch 26/35
+
+Epoch 26: val_loss improved from 0.27897 to 0.26683, saving model to /lustre/home/estudiante_09/ClasificacionTL/modelo/mejores_pesos.h5
+99/99 - 13s - loss: 0.2047 - accuracy: 0.9321 - top3: 0.9962 - val_loss: 0.2668 - val_accuracy: 0.9052 - val_top3: 0.9970 - lr: 2.5000e-06 - 13s/epoch - 135ms/step
+Epoch 27/35
+
+Epoch 27: val_loss did not improve from 0.26683
+99/99 - 13s - loss: 0.2102 - accuracy: 0.9349 - top3: 0.9949 - val_loss: 0.2884 - val_accuracy: 0.9037 - val_top3: 0.9970 - lr: 2.5000e-06 - 13s/epoch - 133ms/step
+Epoch 28/35
+
+Epoch 28: ReduceLROnPlateau reducing learning rate to 1.249999968422344e-06.
+
+Epoch 28: val_loss did not improve from 0.26683
+99/99 - 13s - loss: 0.1974 - accuracy: 0.9337 - top3: 0.9959 - val_loss: 0.2887 - val_accuracy: 0.9007 - val_top3: 0.9970 - lr: 2.5000e-06 - 13s/epoch - 135ms/step
+Epoch 29/35
+
+Epoch 29: val_loss did not improve from 0.26683
+99/99 - 13s - loss: 0.1864 - accuracy: 0.9349 - top3: 0.9952 - val_loss: 0.2740 - val_accuracy: 0.9067 - val_top3: 0.9956 - lr: 1.2500e-06 - 13s/epoch - 134ms/step
+Epoch 30/35
+
+Epoch 30: ReduceLROnPlateau reducing learning rate to 6.24999984211172e-07.
+
+Epoch 30: val_loss did not improve from 0.26683
+99/99 - 13s - loss: 0.1905 - accuracy: 0.9362 - top3: 0.9975 - val_loss: 0.2758 - val_accuracy: 0.9052 - val_top3: 0.9956 - lr: 1.2500e-06 - 13s/epoch - 133ms/step
+Epoch 31/35
+
+Epoch 31: val_loss did not improve from 0.26683
+99/99 - 13s - loss: 0.1934 - accuracy: 0.9362 - top3: 0.9968 - val_loss: 0.2790 - val_accuracy: 0.9067 - val_top3: 0.9970 - lr: 6.2500e-07 - 13s/epoch - 134ms/step
+Epoch 31: early stopping
+/lustre/home/estudiante_09/.conda/envs/plantas_tl/lib/python3.11/site-packages/keras/src/engine/training.py:3103: UserWarning: You are saving your model as an HDF5 file via `model.save()`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')`.
+  saving_api.save_model(
+Tiempo fase 2: 3.64 mins
+
+Evaluación final [loss, accuracy, top3]:
+  Train: [0.1361 0.9527 0.9987]
+  Val  : [0.2668 0.9052 0.997 ]
+  Test : [0.215  0.9216 0.9985]
+
+--- Reporte de clasificación (test) ---
+                    precision    recall  f1-score   support
+
+      Mango - sana      1.000     0.962     0.980        26
+      Arjun - sana      0.838     0.939     0.886        33
+   Alstonia - sana      0.900     1.000     0.947        27
+    Guayaba - sana      0.955     1.000     0.977        42
+      Jamun - sana      0.872     0.976     0.921        42
+    Jatrofa - sana      0.679     0.950     0.792        20
+   Pongamia - sana      1.000     0.980     0.990        49
+   Albahaca - sana      1.000     1.000     1.000        22
+    Granada - sana      1.000     0.953     0.976        43
+      Limón - sana      0.850     0.708     0.773        24
+     Chinar - sana      0.824     0.933     0.875        15
+   Mango - enferma      0.951     0.975     0.963        40
+   Arjun - enferma      0.857     0.857     0.857        35
+Alstonia - enferma      0.971     0.868     0.917        38
+ Guayaba - enferma      0.952     0.952     0.952        21
+    Bael - enferma      0.944     1.000     0.971        17
+   Jamun - enferma      0.979     0.885     0.929        52
+ Jatrofa - enferma      1.000     0.500     0.667        18
+Pongamia - enferma      0.976     0.952     0.964        42
+ Granada - enferma      0.976     0.976     0.976        41
+   Limón - enferma      0.500     0.636     0.560        11
+  Chinar - enferma      0.938     0.833     0.882        18
+
+          accuracy                          0.922       676
+         macro avg      0.907     0.902     0.898       676
+      weighted avg      0.929     0.922     0.921       676
+
+
+Modelo guardado en /lustre/home/estudiante_09/ClasificacionTL/modelo/modelo_plantas.h5
+
+Tiempo total: 6.56 mins
+Hermosillo, 21:07:04
+2026-10-25 21:07:06.232326: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-10-25 21:07:06.233234: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-10-25 21:07:06.234708: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+/lustre/home/estudiante_09/.conda/envs/plantas_tl/lib/python3.11/site-packages/tensorflow_hub/__init__.py:61: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import parse_version
+total 35
+drwxr-xr-x 2 estudiante_09 cursos     512 Oct 25 21:07 .
+drwxr-xr-x 4 estudiante_09 cursos   33280 Oct 25 21:07 ..
+-rw-r--r-- 1 estudiante_09 cursos 4194304 Oct 25 21:07 group1-shard1of3.bin
+-rw-r--r-- 1 estudiante_09 cursos 4194304 Oct 25 21:07 group1-shard2of3.bin
+-rw-r--r-- 1 estudiante_09 cursos  756056 Oct 25 21:07 group1-shard3of3.bin
+-rw-r--r-- 1 estudiante_09 cursos  120802 Oct 25 21:07 model.json
+Ambiente exportado a plantas_tl.yml
+Proceso finalizado: Sun Oct 25 21:07:13 MST 2026

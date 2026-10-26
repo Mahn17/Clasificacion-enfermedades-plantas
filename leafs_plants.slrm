@@ -1,0 +1,40 @@
+#!/bin/bash
+#SBATCH --account=curso04
+#SBATCH --nodes=1               # numero de nodos (maximo 10)
+#SBATCH --job-name=plantas_tl   # nombre del job
+#SBATCH --ntasks=1              # numero de procesos
+#SBATCH --cpus-per-task=16      # hilos que usara TensorFlow
+#SBATCH --mem=16G               # memoria RAM (pico estimado ~8-10 GB)
+#SBATCH --time=6:00:00          # tiempo de ejecucion (maximo 168 hrs)
+#SBATCH --partition=cpu
+
+AMBIENTE=plantas_tl
+
+echo "Transferencia de aprendizaje: enfermedades de plantas (plant_leaves)"
+echo "Nodo: $(hostname)  CPUs: $SLURM_CPUS_PER_TASK  Inicio: $(date)"
+
+cd "$SLURM_SUBMIT_DIR"
+source activate $AMBIENTE
+export TF_CPP_MIN_LOG_LEVEL=2
+
+# 1. Descargar las 4502 imagenes de Mendeley Data (solo si faltan; tambien se pueden
+#    descargar en otra computadora y subir la carpeta datos/ al servidor)
+N_IMAGENES=$(find datos/plant_leaves -name "*.JPG" 2>/dev/null | wc -l)
+if [ "$N_IMAGENES" -lt 4502 ]; then
+    python descargar_datos.py || exit 1
+else
+    echo "Dataset completo ($N_IMAGENES imagenes), se omite la descarga"
+fi
+
+# 2. Entrenar el modelo
+python leafs_plants.py || exit 1
+
+# 3. Convertir el modelo a TensorFlow.js para la aplicacion del celular
+tensorflowjs_converter --input_format=keras modelo/modelo_plantas.h5 app/modelo
+ls -la app/modelo
+
+# 4. Exportar el ambiente configurado
+conda env export -n $AMBIENTE > $AMBIENTE.yml
+echo "Ambiente exportado a $AMBIENTE.yml"
+
+echo "Proceso finalizado: $(date)"

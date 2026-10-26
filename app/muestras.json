@@ -1,0 +1,90 @@
+[
+ {
+  "archivo": "muestras/0001_0018.jpg",
+  "clase": 0
+ },
+ {
+  "archivo": "muestras/0002_0030.jpg",
+  "clase": 1
+ },
+ {
+  "archivo": "muestras/0003_0103.jpg",
+  "clase": 2
+ },
+ {
+  "archivo": "muestras/0004_0053.jpg",
+  "clase": 3
+ },
+ {
+  "archivo": "muestras/0005_0046.jpg",
+  "clase": 4
+ },
+ {
+  "archivo": "muestras/0006_0068.jpg",
+  "clase": 5
+ },
+ {
+  "archivo": "muestras/0007_0171.jpg",
+  "clase": 6
+ },
+ {
+  "archivo": "muestras/0008_0070.jpg",
+  "clase": 7
+ },
+ {
+  "archivo": "muestras/0009_0262.jpg",
+  "clase": 8
+ },
+ {
+  "archivo": "muestras/0010_0020.jpg",
+  "clase": 9
+ },
+ {
+  "archivo": "muestras/0011_0007.jpg",
+  "clase": 10
+ },
+ {
+  "archivo": "muestras/0012_0144.jpg",
+  "clase": 11
+ },
+ {
+  "archivo": "muestras/0013_0096.jpg",
+  "clase": 12
+ },
+ {
+  "archivo": "muestras/0014_0045.jpg",
+  "clase": 13
+ },
+ {
+  "archivo": "muestras/0015_0042.jpg",
+  "clase": 14
+ },
+ {
+  "archivo": "muestras/0016_0048.jpg",
+  "clase": 15
+ },
+ {
+  "archivo": "muestras/0017_0189.jpg",
+  "clase": 16
+ },
+ {
+  "archivo": "muestras/0018_0060.jpg",
+  "clase": 17
+ },
+ {
+  "archivo": "muestras/0019_0157.jpg",
+  "clase": 18
+ },
+ {
+  "archivo": "muestras/0020_0058.jpg",
+  "clase": 19
+ },
+ {
+  "archivo": "muestras/0021_0013.jpg",
+  "clase": 20
+ },
+ {
+  "archivo": "muestras/0022_0117.jpg",
+  "clase": 21
+ }
+]
