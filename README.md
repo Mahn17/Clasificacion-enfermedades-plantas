@@ -7,7 +7,7 @@ usado desde el **celular** con TensorFlow.js.
 - 📝 Artículo en Medium: [Detectando enfermedades en hojas de plantas con transferencia de aprendizaje: del clúster al celular](https://medium.com/@mahn10/detectando-enfermedades-en-hojas-de-plantas-con-transferencia-de-aprendizaje-del-cl%C3%BAster-al-d0b44d75a99a)
 - 🎥 Vídeo de la aplicación en el celular: [Google Drive](https://drive.google.com/file/d/1M7FD8dq1A1JCE1BPuLeUljMLWLzjgssk/view?usp=sharing)
 
-Autor: Manuel Alejandro Heredia Nogales — Redes Neuronales 2026-2
+Manuel Alejandro Heredia Nogales — Redes Neuronales 2026-2
 
 ---
 
